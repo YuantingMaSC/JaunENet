@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-'''
+'''
+Author       : Yuanting Ma
+Github       : https://github.com/YuantingMaSC
+LastEditors  : Yuanting_Ma 
+Date         : 2024-12-06 09:23:59
+LastEditTime : 2025-02-11 10:32:58
+FilePath     : /JaunENet/pretrain.py
+Description  : 
+Copyright (c) 2025 by Yuanting_Ma@163.com, All Rights Reserved. 
+'''
 from __future__ import absolute_import, division, print_function
 import os
 import random
@@ -14,8 +25,8 @@ import numpy as np
 gpus = tf.config.list_physical_devices("GPU")
 print(gpus)
 if gpus:
-    gpu0 = gpus[0]  # 如果有多个GPU，仅使用第0个GPU
-    tf.config.experimental.set_memory_growth(gpu0, True)  # 设置GPU显存用量按需使用
+    gpu0 = gpus[0]  # If there are multiple GPUs, only use the first GPU
+    tf.config.experimental.set_memory_growth(gpu0, True)  # Set GPU memory usage to grow as needed
     tf.config.set_visible_devices([gpu0], "GPU")
 import time
 from prepare_data import load_and_preprocess_image,get_the_length_of_dataset
@@ -140,7 +151,7 @@ if __name__ == '__main__':
         lr = lr_decay(init_lr,epoch)
         optimizer = tf.keras.optimizers.RMSprop(learning_rate=lr)
         step = 0
-        train_dataset.shuffle(100)  # 考虑训练集要shuffle一下，避免出现过拟合
+        train_dataset.shuffle(100)  # Shuffle the training set to avoid overfitting
         for features in train_dataset:
             step += 1
             X, labels = process_features(features, data_augmentation=img_aug)

@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-'''
+'''
+Author       : Yuanting Ma
+Github       : https://github.com/YuantingMaSC
+LastEditors  : Yuanting_Ma 
+Date         : 2024-12-06 09:23:59
+LastEditTime : 2025-02-11 10:34:55
+FilePath     : /JaunENet/train.py
+Description  : 
+Copyright (c) 2025 by Yuanting_Ma@163.com, All Rights Reserved. 
+'''
 from __future__ import absolute_import, division, print_function
 import os
 import random
@@ -199,7 +210,7 @@ if __name__ == '__main__':
         lr = lr_decay(init_lr,epoch)
         optimizer = tf.keras.optimizers.RMSprop(learning_rate=lr)
         step = 0
-        train_dataset.shuffle(100)  # 考虑训练集要shuffle一下，避免出现过拟合
+        train_dataset.shuffle(100) 
         for features in train_dataset:
             step += 1
             X, labels = process_features(features, data_augmentation=img_aug)

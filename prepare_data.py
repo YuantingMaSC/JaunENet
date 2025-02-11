@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-'''
+'''
+Author       : Yuanting Ma
+Github       : https://github.com/YuantingMaSC
+LastEditors  : Yuanting_Ma 
+Date         : 2024-12-06 09:23:59
+LastEditTime : 2025-02-11 10:32:52
+FilePath     : /JaunENet/prepare_data.py
+Description  : 
+Copyright (c) 2025 by Yuanting_Ma@163.com, All Rights Reserved. 
+'''
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflow_addons as tfa
@@ -14,7 +25,7 @@ train_tfrecord = dataset_dir + "train.tfrecord"
 valid_tfrecord = dataset_dir + "valid.tfrecord"
 test_tfrecord = dataset_dir + "test.tfrecord"
 
-def load_and_preprocess_image(image_raw,  IMAGE_HEIGHT=IMAGE_HEIGHT, IMAGE_WIDTH=IMAGE_WIDTH, CHANNELS=CHANNELS, data_augmentation=False,image_show = False): #数据增强部分代码需要替换
+def load_and_preprocess_image(image_raw,  IMAGE_HEIGHT=IMAGE_HEIGHT, IMAGE_WIDTH=IMAGE_WIDTH, CHANNELS=CHANNELS, data_augmentation=False,image_show = False): # Data augmentation part needs to be replaced
     # decode tfa_tensor-> (n,268,268,3),tf_tensor->(268,268,3)
     zoom_rate = 1.05
     image_tensor = tf.io.decode_image(contents=image_raw, channels=CHANNELS, dtype=tf.dtypes.float32)
@@ -24,30 +35,30 @@ def load_and_preprocess_image(image_raw,  IMAGE_HEIGHT=IMAGE_HEIGHT, IMAGE_WIDTH
         plt.clf()
     hight = min(image_tensor.shape[0], image_tensor.shape[1])
     image_tensor = tf.image.resize_with_crop_or_pad(image_tensor, target_height=hight,
-                                                    target_width=hight)  # 各年份图像分辨率不一致，先crop成原图短边长的方形图
+                                                    target_width=hight)  # Different resolutions for images of different years, first crop to a square image with the length of the short side of the original image
     if hight<IMAGE_WIDTH:
         image_tensor = tf.image.resize_with_crop_or_pad(image_tensor, target_height=int(IMAGE_WIDTH * zoom_rate),
-                                                    target_width=int(IMAGE_WIDTH * zoom_rate))  # 低分辨率图像padding
+                                                    target_width=int(IMAGE_WIDTH * zoom_rate))  # Padding for low-resolution images
     else:
-        image_tensor = tf.image.resize(image_tensor, size=(int(IMAGE_WIDTH * zoom_rate), int(IMAGE_WIDTH * zoom_rate)))#高分辨率图像直接resize采样
+        image_tensor = tf.image.resize(image_tensor, size=(int(IMAGE_WIDTH * zoom_rate), int(IMAGE_WIDTH * zoom_rate)))  # Directly resize high-resolution images
     if data_augmentation:
         image = tf.reshape(tf.cast(image_tensor, dtype=tf.float32),
-                           shape=(1, int(IMAGE_WIDTH * zoom_rate), int(IMAGE_WIDTH * zoom_rate), 3)) #tfa 输入的是一个四维的tensor
-        if np.random.rand() < 0.05:  # 以0.8的概率来旋转
+                           shape=(1, int(IMAGE_WIDTH * zoom_rate), int(IMAGE_WIDTH * zoom_rate), 3))  # tfa input is a four-dimensional tensor
+        if np.random.rand() < 0.05:  # Rotate with a probability of 0.05
             image = tfa.image.rotate(images=image, angles=0.1 * np.random.rand() * np.pi)
-        if np.random.rand() < 0.05:  # 以0.8的概率来cutout
-            image = tfa.image.random_cutout(images=image, mask_size=(int(IMAGE_WIDTH * 0.10), int(IMAGE_WIDTH * 0.10)))  # 随机裁剪
+        if np.random.rand() < 0.05:  # Cutout with a probability of 0.05
+            image = tfa.image.random_cutout(images=image, mask_size=(int(IMAGE_WIDTH * 0.10), int(IMAGE_WIDTH * 0.10)))  # Random cutout
         image = tf.squeeze(image)
         if np.random.rand() < 0.05:
-            image = tf.image.random_flip_left_right(image=image)  # 1:2的概率水平翻转
+            image = tf.image.random_flip_left_right(image=image)  # Horizontal flip with a probability of 0.05
         if np.random.rand() < 0.05:
             image = tf.image.transpose(image)
         # image = tf.add(image, tf.cast(
         #     tf.random.normal(shape=[int(IMAGE_WIDTH * zoom_rate), int(IMAGE_WIDTH * zoom_rate), 3], mean=0, stddev=0.02),
         #     tf.float32))
-        # image = tf.image.random_contrast(image, lower=0.5, upper=1.8)  # 随机设置图片的对比度
-        # # image = tf.image.random_hue(image, max_delta=0.3)  # 随机设置图片的色度
-        # image = tf.image.random_saturation(image, lower=0.5, upper=1.8)  # 随机设置图片的饱和度
+        # image = tf.image.random_contrast(image, lower=0.5, upper=1.8)  # Randomly set the contrast of the image
+        # # image = tf.image.random_hue(image, max_delta=0.3)  # Randomly set the hue of the image
+        # image = tf.image.random_saturation(image, lower=0.5, upper=1.8)  # Randomly set the saturation of the image
         if np.random.rand() < 0.05:
             image = tf.image.random_brightness(image=image, max_delta=0.05)
         image = tf.image.random_crop(value=image, size=[IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS])

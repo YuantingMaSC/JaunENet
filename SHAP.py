@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-'''
+'''
+Author       : Yuanting Ma
+Github       : https://github.com/YuantingMaSC
+LastEditors  : Yuanting_Ma 
+Date         : 2024-12-06 09:23:59
+LastEditTime : 2025-02-11 10:30:41
+FilePath     : /JaunENet/SHAP.py
+Description  : 
+Copyright (c) 2025 by Yuanting_Ma@163.com, All Rights Reserved. 
+'''
 import tensorflow as tf
 from tensorflow.keras import Input
 from tensorflow.keras.models import Model
@@ -5,7 +16,7 @@ import shap
 from prepare_data import load_and_preprocess_image,generate_datasets_shap
 from train import init_way
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # 这一行注释掉就是使用gpu，不注释就是使用cpu
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # whether to use GPU
 import numpy as np
 
 BATCH_SIZE = 10
@@ -17,7 +28,7 @@ def get_class_id(image_root):
             id_cls[i] = item
     return id_cls
 
-def process_features(features, data_augmentation,image_show = False):  # 这里需要多返回一个meta
+def process_features(features, data_augmentation,image_show = False):  
     image_raw = features['image_raw'].numpy()
     image_tensor_list = []
     for image in image_raw:
@@ -47,7 +58,7 @@ for feature in train_dataset:
         image_tensor = tf.io.decode_image(contents=image, channels=CHANNELS, dtype=tf.dtypes.float32)
         hight = min(image_tensor.shape[0], image_tensor.shape[1])
         image_tensor = tf.image.resize_with_crop_or_pad(image_tensor, target_height=hight,
-                                                        target_width=hight)  # 各年份图像分辨率不一致，先crop成原图短边长的方形图
+                                                        target_width=hight) # crop the irregular image to a square
         image_tensor = tf.image.resize(image_tensor,size=(IMAGE_HEIGHT,IMAGE_WIDTH))
         image_np = image_tensor.numpy()
         images.append(image_np)
@@ -74,7 +85,7 @@ for name in os.listdir(X_dir):
     image_raw = tf.io.read_file(X_dir+name)
     image_processed = load_and_preprocess_image(image_raw, data_augmentation=False, image_show=False)
     X.append(image_processed.numpy())
-# X = images[50:53]
+
 X = np.array(X)
 print(X.shape,type(X))
 shap_values, indexes = explainer.shap_values(X, ranked_outputs=3)

@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-'''
+'''
+Author       : Yuanting Ma
+Github       : https://github.com/YuantingMaSC
+LastEditors  : Yuanting_Ma 
+Date         : 2024-12-06 09:23:59
+LastEditTime : 2025-02-11 10:33:30
+FilePath     : /JaunENet/to_tfrecord.py
+Description  : 
+Copyright (c) 2025 by Yuanting_Ma@163.com, All Rights Reserved. 
+'''
 import pandas as pd
 import os
 import tensorflow as tf
@@ -15,8 +26,8 @@ test_tfrecord = dataset_dir + "test.tfrecord"
 # convert a value to a type compatible tf.train.Feature
 def _bytes_feature(value):
     # Returns a bytes_list from a string / byte.
-    if isinstance(value, type(tf.constant(0.))): #判断value 的类型是否和tf.constant()一致
-        value = value.numpy()   # BytesList won't unpack a string from an EagerTensor.
+    if isinstance(value, type(tf.constant(0.))):  # Check if the type of value is the same as tf.constant()
+        value = value.numpy()  # BytesList won't unpack a string from an EagerTensor.
     return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
 
@@ -66,7 +77,7 @@ def dataset_to_tfrecord(dataset_dir, tfrecord_name):
             image_string = open(image_path, 'rb').read()
             # metai = meta.loc[image_name[:num]].tolist()
             metai = [0,0,0,0,0,0,0,0,0]
-            tf_example = image_example(image_string, metai,label)
+            tf_example = image_example(image_string, metai, label)
             writer.write(tf_example.SerializeToString())
 
 
