@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-'''
+'''
+Author       : Yuanting Ma
+Github       : https://github.com/YuantingMaSC
+LastEditors  : Yuanting_Ma 
+Date         : 2024-12-06 09:19:02
+LastEditTime : 2025-02-11 10:22:18
+FilePath     : /JaunENet/models/VisonTransformer.py
+Description  : 
+Copyright (c) 2025 by Yuanting_Ma@163.com, All Rights Reserved. 
+'''
 from vit_keras import vit, utils
 
 def create_vit_model(image_size=128,  num_classes=3):
@@ -13,6 +24,7 @@ def create_vit_model(image_size=128,  num_classes=3):
 
 if __name__ == '__main__':
     from tensorflow.keras.datasets import cifar10
+    import numpy as np
     import tensorflow as tf
     def add_last_layer(base_model, NUM_CLASSES):
         x = base_model.layers[-2].output
@@ -23,21 +35,21 @@ if __name__ == '__main__':
         return model_new
 
     # Create the Vision Transformer model
-    # 创建模型
+    # Create model
     vit_model = create_vit_model(
-        image_size=128,  # CIFAR-10 图片大小
-        num_classes=3,          # CIFAR-10 分类 
+        image_size=128,  # CIFAR-10 image size
+        num_classes=3,   # CIFAR-10 classes
     )
     vit_model = add_last_layer(vit_model, 3)
-    # 打印模型结构
+    # Print model structure
     vit_model.summary()
 
-    # 测试数据
-    import numpy as np
-    x_dummy = np.random.rand(8, 128, 128, 3).astype(np.float32)  # 8 张随机图像+
-    # y_dummy = np.random.randint(0, 10, size=(8,))             # 对应 8 个标签
+    # Test data
 
-    # 编译并训练模型
+    x_dummy = np.random.rand(8, 128, 128, 3).astype(np.float32)  # 8 random images
+    # y_dummy = np.random.randint(0, 10, size=(8,))  # 8 tags
+
+    # Compile and train the model
     # vit_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     # vit_model.fit(x_dummy, y_dummy, epochs=1)
 

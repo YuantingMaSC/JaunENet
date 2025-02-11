@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-'''
+'''
+Author       : Yuanting Ma
+Github       : https://github.com/YuantingMaSC
+LastEditors  : Yuanting_Ma 
+Date         : 2024-12-06 09:19:02
+LastEditTime : 2025-02-11 10:26:17
+FilePath     : /JaunENet/models/ConvNeXt.py
+Description  : 
+Copyright (c) 2025 by Yuanting_Ma@163.com, All Rights Reserved. 
+'''
 import tensorflow as tf
 import numpy as np
 from tensorflow.keras import layers
@@ -53,12 +64,7 @@ class LayerScale(layers.Layer):
         )
         return config
     
-
-# 随机深度模块
-'''
- drop_path_rate (float)：丢弃路径的概率。应该在[0, 1]。
- 返回：残差路径丢弃或保留的张量。
-'''
+# random depth
 class StochasticDepth(layers.Layer):
     def __init__(self, drop_path_rate, **kwargs):
         super().__init__(**kwargs)
@@ -79,12 +85,12 @@ class StochasticDepth(layers.Layer):
         return config
     
 def ConvNextBlock(inputs,
-                  projection_dim,  # 卷积层的filters数量
-                  drop_path_rate=0.0,  # 丢弃路径的概率。
+                  projection_dim,  # Number of filters in the convolutional layer
+                  drop_path_rate=0.0,  # Drop path rate
                   layer_scale_init_value=1e-6,
                   name=None):
     x = inputs
-    # Depthwise卷积是分组卷积的一种特殊情况：当分组数=通道数
+    # Depthwise convolution is a special case of grouped convolution: when the number of groups equals the number of channels
     x = layers.Conv2D(filters=projection_dim,
                       kernel_size=(7, 7),
                       padding='same',
@@ -99,7 +105,7 @@ def ConvNextBlock(inputs,
         # Layer scale module
         x = LayerScale(layer_scale_init_value, projection_dim, name=name + '_layer_scale')(x)
     if drop_path_rate:
-        # 随机深度模块
+        # Stochastic depth module
         layer = StochasticDepth(drop_path_rate, name=name + '_stochastic_depth')
     else:
         layer = layers.Activation('linear', name=name + '_identity')
@@ -108,18 +114,18 @@ def ConvNextBlock(inputs,
 
 def ConvNext(depths,  # tiny:[3,3,9,3]
              projection_dims,  # tiny:[96, 192, 384, 768],
-             drop_path_rate=0.0,  # 随机深度概率，如果为0.0，图层缩放不会被使用
-             layer_scale_init_value=1e-6,  # 缩放比例
-             default_size=224,  # 默认输入图像大小
-             model_name='convnext',  # 模型的可选名称
-             include_preprocessing=True,  # 是否包含预处理
-             include_top=True,  # 是否包含分类头
+             drop_path_rate=0.0,  # Stochastic depth rate, if 0.0, layer scaling will not be used
+             layer_scale_init_value=1e-6,  # Scaling ratio
+             default_size=224,  # Default input image size
+             model_name='convnext',  # Optional model name
+             include_preprocessing=True,  # Whether to include preprocessing
+             include_top=True,  # Whether to include classification head
              weights=None,
              input_tensor=None,
              input_shape=None,
              pooling=None,
-             classes=1000,  # 分类个数
-             classifier_activation='softmax'):  # 分类器激活
+             classes=1000,  # Number of classes
+             classifier_activation='softmax'):  # Classifier activation
     img_input = layers.Input(shape=input_shape)
 
     inputs = img_input
