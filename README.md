@@ -3,7 +3,7 @@
  * @Github       : https://github.com/YuantingMaSC
  * @LastEditors  : Yuanting_Ma 
  * @Date         : 2024-12-06 09:16:50
- * @LastEditTime : 2025-02-14 11:08:03
+ * @LastEditTime : 2025-02-19 16:00:27
  * @FilePath     : /JaunENet/README.md
  * @Description  : 
  * Copyright (c) 2024 by Yuanting_Ma@163.com, All Rights Reserved. 
@@ -34,10 +34,13 @@ numpy==1.22
 
 If you use any content from this repository for non-commercial purposes, please cite the following:
 ```bibtex
-@misc{yuanting2025JaunENet,
+@article{ma2025jaunenet,
   title={JaunENet: An effective non-invasive detection of multi-class jaundice deep learning method with limited labeled data},
-  author={Yuanting Ma, Yu Meng, Xiaojun Li, Yutong Fu, Yan Xu, Yanfei Lu, Futian Weng},
-  year={2025}
+  author={Ma, Yuanting and Meng, Yu and Li, Xiaojun and Fu, Yutong and Xu, Yan and Lu, Yanfei and Weng, Futian},
+  journal={Applied Soft Computing},
+  pages={112878},
+  year={2025},
+  publisher={Elsevier}
 }
 ```
 
