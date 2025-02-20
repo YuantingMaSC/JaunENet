@@ -3,7 +3,7 @@
  * @Github       : https://github.com/YuantingMaSC
  * @LastEditors  : Yuanting_Ma 
  * @Date         : 2024-12-06 09:16:50
- * @LastEditTime : 2025-02-20 15:31:22
+ * @LastEditTime : 2025-02-20 15:43:26
  * @FilePath     : /JaunENet/README.md
  * @Description  : 
  * Copyright (c) 2024 by Yuanting_Ma@163.com, All Rights Reserved. 
@@ -58,9 +58,9 @@ If you use any content from this repository for non-commercial purposes, please 
 
 Alternatively, you can reference this repository as follows:
 
-> This content is sourced from **[YuantingMaSC/JaunENet](https://https://github.com/YuantingMaSC/JaunENet)**. Please ensure proper attribution when using any part of this repository.
+> This content is sourced from **[YuantingMaSC/JaunENet](https://https://github.com/YuantingMaSC/JaunENet)**. 
 
-Failure to provide proper attribution violates the repository's usage policy. For commercial use or modifications, please contact the author for permission.
+Please ensure proper attribution when using any part of this repository. Failure to provide proper attribution violates the repository's usage policy. For commercial use or modifications, please contact the author for permission.
 
 Thank you for your cooperation!
 
