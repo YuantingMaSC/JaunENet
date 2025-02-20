@@ -3,19 +3,31 @@
  * @Github       : https://github.com/YuantingMaSC
  * @LastEditors  : Yuanting_Ma 
  * @Date         : 2024-12-06 09:16:50
- * @LastEditTime : 2025-02-20 14:36:45
+ * @LastEditTime : 2025-02-20 14:44:55
  * @FilePath     : /JaunENet/README.md
  * @Description  : 
  * Copyright (c) 2024 by Yuanting_Ma@163.com, All Rights Reserved. 
 -->
-# JaunENet: An effective non-invasive detection of multi-class jaundice deep learning method with limited labeled data
+# JaunENet: An effective non-invasive detection of multi-class jaundice deep learning method with limited labeled data 
 
 ## Abstract
-Jaundice, characterized by elevated bilirubin levels and a yellowish discoloration of the eyes, mucous membranes, and skin, manifests as a symptom of various diseases such as hepatitis, cirrhosis, and liver cancer. Conventional clinical approaches for jaundice detection, such as urine and serum liver function tests, are invasive and timeconsuming. This study endeavors to establish a non-invasive, multi-class jaundice detection method that could potentially replace traditional chemical and biological procedures. Leveraging only a smartphone app and patient-supplied photos, this innovative approach aims to streamline the diagnostic process. The study utilizes a considerable volume of open-source, unlabeled skin disease data to facilitate the transfer of knowledge from JaunENet to the task of classifying jaundice images. Despite the challenge of a limited sample size, this method achieves precise recognition of jaundice images. Comparative analysis demonstrates that the proposed approach surpasses existing benchmark models across various metrics, including accuracy, recall, precision, area under the curve (AUC), and F1-score, yielding impressive values of 0.9674, 0.9663, 0.9717, 0.9833, and 0.9688, respectively. Moreover, the study introduces a SHAP-based model interpretation technique to elucidate the model's output. This analysis underscores the efficacy of the JaunENet network model and the transfer learning and training framework proposed herein, showcasing their ability to expedite and enhance the classification of jaundice images with efficiency and accuracy.
+Jaundice, characterized by elevated bilirubin levels and a yellowish discoloration of the eyes, mucous membranes, and skin,
+ manifests as a symptom of various diseases such as hepatitis, cirrhosis, and liver cancer. Conventional clinical approaches 
+ for jaundice detection, such as urine and serum liver function tests, are invasive and timeconsuming. This study endeavors 
+ to establish a non-invasive, multi-class jaundice detection method that could potentially replace traditional chemical and 
+ biological procedures. Leveraging only a smartphone app and patient-supplied photos, this innovative approach aims to streamline 
+ the diagnostic process. The study utilizes a considerable volume of open-source, unlabeled skin disease data to facilitate 
+ the transfer of knowledge from JaunENet to the task of classifying jaundice images. Despite the challenge of a limited sample 
+ size, this method achieves precise recognition of jaundice images. Comparative analysis demonstrates that the proposed 
+ approach surpasses existing benchmark models across various metrics, including accuracy, recall, precision, area under the 
+ curve (AUC), and F1-score, yielding impressive values of 0.9674, 0.9663, 0.9717, 0.9833, and 0.9688, respectively. Moreover, 
+ the study introduces a SHAP-based model interpretation technique to elucidate the model's output. This analysis underscores 
+ the efficacy of the JaunENet network model and the transfer learning and training framework proposed herein, showcasing 
+ their ability to expedite and enhance the classification of jaundice images with efficiency and accuracy.
 
 ## Overview
 ![Overview of JaunENet](ROCplot/Overview.png)
-
+The research is vailable at **[sciencedirect.com/science/article/pii/S1568494625001899](https://www.sciencedirect.com/science/article/pii/S1568494625001899)**
 ## Requirements
 ```
 tensorflow_gpu==2.7.0
